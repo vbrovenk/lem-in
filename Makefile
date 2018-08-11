@@ -14,7 +14,7 @@ NAME = lem-in
 INCLUDE = lemin.h
 LIBFT_INC = ./libft/includes/
 LIBFT = libft/libft.a
-SRC = main.c
+SRC = main.c queue.c
 OBJ = $(SRC:.c=.o)
 # CFLAGS = -Wall -Wextra -Werror
 
