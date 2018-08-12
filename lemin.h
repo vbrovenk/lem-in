@@ -16,6 +16,10 @@
 # include "libft.h"
 # include "get_next_line.h"
 
+#define DELETE_ROOM 1
+#define DELETE_LINK 2
+#define INFINITY 2147483647
+
 typedef struct  s_lemin{
     char *output;
     int count_ants;
@@ -24,6 +28,11 @@ typedef struct  s_lemin{
     int flag_start;
     int flag_end;
     int **matrix;
+    int *distances;
+    int *visited;
+    int *path;
+    int last_index;
+    int lenght_path;
 }               t_lemin;
 
 typedef struct  s_node
