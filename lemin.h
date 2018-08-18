@@ -82,7 +82,11 @@ int		find_index(t_queue *queue, char *name_vertex);
 void			get_shortest_path(t_lemin *lemin, t_queue *queue);
 int				find_end_index(t_queue *queue);
 
-void    find_path(t_lemin *lemin, t_queue *queue);
+void	find_path(t_lemin *lemin, t_queue *queue);
+void	join_str(t_lemin *lemin, char *line);
+void	delete_split(char **split, int what_del);
+char    *find_room_name(t_queue *queue, int index);
+void	init_structs(t_lemin *lemin, t_queue *queue);
 
 
 //==================== for move_ants

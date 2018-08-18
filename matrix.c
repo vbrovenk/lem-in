@@ -13,24 +13,6 @@
 #include "lemin.h"
 #include <stdio.h>
 
-void			make_matrix(t_queue *queue, t_lemin *lemin)
-{
-	int i;
-	int j;
-
-	i = -1;
-	lemin->matrix = (int **)malloc(sizeof(int *) * queue->count);
-	while (++i < queue->count)
-		lemin->matrix[i] = (int *)malloc(sizeof(int) * queue->count);
-	i = -1;
-	while (++i < queue->count)
-	{
-		j = -1;
-		while (++j < queue->count)
-			lemin->matrix[i][j] = 0;
-	}
-}
-
 static	void	check_line(char *line, t_lemin *lemin)
 {
 	int i;
@@ -46,10 +28,10 @@ static	void	check_line(char *line, t_lemin *lemin)
 static	void	input_link(t_lemin *lemin, int v1, int v2)
 {
 	lemin->matrix[v1][v2] = 1;
-	lemin->matrix[v2][v1] = 1;	
+	lemin->matrix[v2][v1] = 1;
 }
 
-void	check_split(char **split, t_lemin *lemin)
+static	void	check_split(char **split, t_lemin *lemin)
 {
 	int	i;
 
@@ -60,7 +42,7 @@ void	check_split(char **split, t_lemin *lemin)
 		ft_error(lemin);
 }
 
-static	void	help_fill(t_queue *queue, t_lemin *lemin, 
+static	void	help_fill(t_queue *queue, t_lemin *lemin,
 									char *line, char **split)
 {
 	int v1;
@@ -99,6 +81,8 @@ void			fill_matrix(char *line, t_queue *queue, t_lemin *lemin)
 	int		i;
 
 	i = -1;
+	if (line == NULL)
+		ft_error(lemin);
 	while (line[++i])
 		if (ft_isspace(line[i]))
 			ft_error(lemin);
@@ -110,7 +94,7 @@ void			fill_matrix(char *line, t_queue *queue, t_lemin *lemin)
 	v1 = find_index(queue, split[0]);
 	v2 = find_index(queue, split[1]);
 	if (v1 != -1 && v2 != -1)
-		input_link(lemin, v1, v2);	
+		input_link(lemin, v1, v2);
 	delete_split(split, DELETE_LINK);
 	join_str(lemin, line);
 	ft_strdel(&line);

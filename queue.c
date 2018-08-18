@@ -55,8 +55,8 @@ void			enqueue(t_queue *queue, char *line, t_lemin *lemin)
 
 void			set_indexes(t_queue *queue)
 {
-	t_node  *temp;
-	int	 i;
+	t_node	*temp;
+	int		i;
 
 	i = 1;
 	temp = queue->head;
@@ -75,9 +75,9 @@ void			set_indexes(t_queue *queue)
 
 void			check_start_end(t_queue *queue, t_lemin *lemin)
 {
-	t_node  *temp;
-	int	 flag_start;
-	int	 flag_end;
+	t_node	*temp;
+	int		flag_start;
+	int		flag_end;
 
 	temp = queue->head;
 	flag_start = 0;
@@ -94,7 +94,7 @@ void			check_start_end(t_queue *queue, t_lemin *lemin)
 		ft_error(lemin);
 }
 
-int		find_index(t_queue *queue, char *name_vertex)
+int				find_index(t_queue *queue, char *name_vertex)
 {
 	t_node *node;
 

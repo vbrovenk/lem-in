@@ -19,7 +19,9 @@ SRC =	main.c\
 		move_ants.c\
 		matrix.c\
 		get_shortest_paths.c\
-		find_path.c
+		find_path.c\
+		useful_func.c\
+		error.c
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
 
