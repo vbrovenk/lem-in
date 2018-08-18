@@ -20,39 +20,72 @@
 #define DELETE_LINK 2
 #define INFINITY 2147483647
 
-typedef struct  s_lemin{
-    char *output;
-    int count_ants;
-    int count_start;
-    int count_end;
-    int flag_start;
-    int flag_end;
-    int **matrix;
-    int *distances;
-    int *visited;
-    int *path;
-    int last_index;
-    int lenght_path;
-}               t_lemin;
+typedef	struct	s_lemin{
+	char *output;
+	int count_ants;
+	int count_start;
+	int count_end;
+	int flag_start;
+	int flag_end;
+	int **matrix;
+	int *distances;
+	int *visited;
+	int *path;
+	int first_room;
+	int lenght_path;
+
+	char	**final_path;
+}				t_lemin;
 
 typedef struct  s_node
 {
-    int     index;
-    char    *name;
-    int     start;
-    int     end;
-    struct  s_node *next;
-}               t_node;
+	int	 index;
+	char	*name;
+	int	 start;
+	int	 end;
+	struct  s_node *next;
+}			   t_node;
 
 typedef struct  s_queue
 {
-    t_node  *head;
-    t_node  *tail;
-    int     count;
-}               t_queue;
+	t_node  *head;
+	t_node  *tail;
+	int	 count;
+}			   t_queue;
+
+typedef struct s_ant
+{
+	int	 name_ant;
+	int	 index_room;
+	struct  s_ant   *next;
+}			  t_ant;
+
+typedef struct  s_list_ants
+{
+	t_ant   *head;
+	t_ant   *tail;
+
+}			   t_list_ants;
 
 
-void    enqueue(t_queue *queue, char *line, t_lemin *lemin);
-void    ft_error(t_lemin *lemin);
+void	enqueue(t_queue *queue, char *line, t_lemin *lemin);
+void	ft_error(t_lemin *lemin);
+void	move_ants(t_lemin *lemin);
+void	set_indexes(t_queue *queue);
+void	check_start_end(t_queue *queue, t_lemin *lemin);
+void	make_matrix(t_queue *queue, t_lemin *lemin);
+void	fill_matrix(char *line, t_queue *queue, t_lemin *lemin);
+int		find_index(t_queue *queue, char *name_vertex);
+void	delete_split(char **split, int what_del);
+void	join_str(t_lemin *lemin, char *line);
+int		find_index(t_queue *queue, char *name_vertex);
+void			get_shortest_path(t_lemin *lemin, t_queue *queue);
+int				find_end_index(t_queue *queue);
+
+void    find_path(t_lemin *lemin, t_queue *queue);
+
+
+//==================== for move_ants
+char    *find_room_name(t_queue *queue, int index);
 
 #endif

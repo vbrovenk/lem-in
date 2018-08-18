@@ -14,9 +14,14 @@ NAME = lem-in
 INCLUDE = lemin.h
 LIBFT_INC = ./libft/includes/
 LIBFT = libft/libft.a
-SRC = main.c queue.c
+SRC =	main.c\
+		queue.c\
+		move_ants.c\
+		matrix.c\
+		get_shortest_paths.c\
+		find_path.c
 OBJ = $(SRC:.c=.o)
-# CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 OFF=\033[0m
 RED=\033[31m
@@ -36,7 +41,7 @@ $(NAME): $(OBJ)
 	@echo "$(PURPLEBOLD)lem-in is ready"
 
 %.o: %.c $(INCLUDE)
-	@gcc -c $< -o $@ -I $(LIBFT_INC)
+	@gcc $(CFLAGS) -c $< -o $@ -I $(LIBFT_INC)
 
 clean:
 	@make clean -C libft/

@@ -1,8 +1,27 @@
-5
+4
 ##start
-hello 1 0
-vasya 9 4
+1 23 3
+2 16 7
+# comment
+3 1 3
+4 16 5
+5 9 3
+6 1 5
+7 4 8
 ##end
-kruto 13 0
-hello-vasya
-vasya-kruto
+0 9 5
+# coment
+0-2
+#coment
+0-3
+1-3
+4-3
+1-2
+3-5
+4-2
+2-3
+7-6
+7-2
+7-4
+6-5
+#colos
