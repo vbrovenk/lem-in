@@ -89,7 +89,7 @@ void			get_shortest_path(t_lemin *lemin, t_queue *queue)
 	end_index = find_end_index(queue);
 	if (lemin->distances[end_index] == INFINITY)
 	{
-		// ft_putstr("##END VERTEX IS NOT AVAILABLE FROM ##START\n");
-		ft_error(lemin);
+		ft_putstr("##END VERTEX IS NOT AVAILABLE FROM ##START\n");
+		ft_error();
 	}
 }

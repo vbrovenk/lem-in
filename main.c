@@ -6,12 +6,11 @@
 /*   By: vbrovenk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/02 16:17:57 by vbrovenk          #+#    #+#             */
-/*   Updated: 2018/08/02 16:17:59 by vbrovenk         ###   ########.fr       */
+/*   Updated: 2018/08/19 14:31:59 by vbrovenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lemin.h"
-#include <stdio.h>
 
 void	check_ants(t_lemin *lemin)
 {
@@ -20,18 +19,18 @@ void	check_ants(t_lemin *lemin)
 
 	get_next_line(0, &line);
 	if (line == NULL)
-		exit(1);
+		ft_error();
 	i = -1;
 	while (line[++i])
 	{
 		if (ft_isspace(line[i]))
-			;
+			ft_error();
 		else if (!ft_isdigit(line[i]))
-			ft_error(lemin);
+			ft_error();
 	}
 	lemin->count_ants = ft_atoi(line);
-	if (lemin->count_ants == 0)
-		ft_error(lemin);
+	if (lemin->count_ants <= 0)
+		ft_error();
 	lemin->output = line;
 }
 
@@ -48,7 +47,7 @@ void	check_commands(char *line, t_lemin *lemin)
 		lemin->flag_end = 1;
 	}
 	else if (line[0] != '#')
-		ft_error(lemin);
+		ft_error();
 	join_str(lemin, line);
 }
 
@@ -67,7 +66,7 @@ void	get_room(char *line, t_lemin *lemin, t_queue *queue)
 		j = -1;
 		while (split[i][++j])
 			if (!ft_isdigit(split[i][j]))
-				ft_error(lemin);
+				ft_error();
 		i++;
 	}
 	if (i != 3)
@@ -84,23 +83,28 @@ char	*check_rooms(t_lemin *lemin, t_queue *queue)
 	while (get_next_line(0, &line) > 0 && ft_strchr(line, '-') == 0)
 	{
 		if (line[0] == '\0')
-			ft_error(lemin);
+			ft_error();
 		if (ft_strchr(line, '#'))
 			check_commands(line, lemin);
 		else
 		{
+			if (ft_isspace(line[0]) == 1)
+			{
+				// ft_putstr("ROOM HAS SPACES IN NAME\n");
+				ft_error();
+			}
 			get_room(line, lemin, queue);
 		}
 		ft_strdel(&line);
 	}
 	if (lemin->count_start != 1 || lemin->count_end != 1)
-		ft_error(lemin);
+		ft_error();
 	return (line);
 }
 
+// вопрос про пустые строки в конце карты
 int		main(void)
 {
-	// ОБРАБОТАТЬ ОДИНАКОВЫЕ НАЗВАНИЯ КОМНАТ
 	t_lemin *lemin;
 	t_queue *queue;
 	char	*last_line;
@@ -110,6 +114,7 @@ int		main(void)
 	init_structs(lemin, queue);
 	check_ants(lemin);
 	last_line = check_rooms(lemin, queue);
+	check_same_rooms(queue);
 	set_indexes(queue);
 	check_start_end(queue, lemin);
 	make_matrix(queue, lemin);
@@ -120,6 +125,5 @@ int		main(void)
 	ft_putchar('\n');
 	find_path(lemin, queue);
 	move_ants(lemin);
-	// system("leaks lem-in");
 	return (0);
 }
