@@ -11,19 +11,6 @@
 /* ************************************************************************** */
 
 #include "lemin.h"
-#include <stdio.h>
-
-static	void	check_line(char *line)
-{
-	int i;
-
-	if (ft_strchr(line, '-') == 0)
-		ft_error();
-	i = -1;
-	while (line[++i])
-		if (ft_isspace(line[i]))
-			ft_error();
-}
 
 static	void	input_link(t_lemin *lemin, int v1, int v2)
 {
@@ -31,15 +18,10 @@ static	void	input_link(t_lemin *lemin, int v1, int v2)
 	lemin->matrix[v2][v1] = 1;
 }
 
-static	void	check_split(char **split)
+static	void	join_and_del(t_lemin *lemin, char *line)
 {
-	int	i;
-
-	i = 0;
-	while (split[i] != NULL)
-		i++;
-	if (i != 2)
-		ft_error();
+	join_str(lemin, line);
+	ft_strdel(&line);
 }
 
 static	void	help_fill(t_queue *queue, t_lemin *lemin,
@@ -49,19 +31,17 @@ static	void	help_fill(t_queue *queue, t_lemin *lemin,
 	int v2;
 
 	while (get_next_line(0, &line) > 0)
-	{
 		if (line[0] == '#')
-		{
-			join_str(lemin, line);
-			ft_strdel(&line);
-		}
+			join_and_del(lemin, line);
 		else
 		{
-			check_line(line);
+			if (check_line(line) == 1)
+				return ;
 			split = ft_strsplit(line, '-');
-			// if (split[2] != NULL)
-			// 	ft_error(lemin);
-			check_split(split);
+			if (check_split(split, line) == 1)
+				return ;
+			if (check_name_rooms(split, line, queue) == 0)
+				return ;
 			v1 = find_index(queue, split[0]);
 			v2 = find_index(queue, split[1]);
 			if (v1 != -1 && v2 != -1)
@@ -70,7 +50,6 @@ static	void	help_fill(t_queue *queue, t_lemin *lemin,
 			join_str(lemin, line);
 			ft_strdel(&line);
 		}
-	}
 }
 
 void			fill_matrix(char *line, t_queue *queue, t_lemin *lemin)
@@ -83,20 +62,18 @@ void			fill_matrix(char *line, t_queue *queue, t_lemin *lemin)
 	i = -1;
 	if (line == NULL)
 		ft_error(lemin);
-	while (line[++i])
-		if (ft_isspace(line[i]))
-			ft_error();
-	check_line(line);
+	if (check_line(line) == 1)
+		return ;
 	split = ft_strsplit(line, '-');
-	// if (split[2] != NULL)
-		// ft_error(lemin);
-	check_split(split);
+	if (check_split(split, line) == 1)
+		return ;
+	if (check_name_rooms(split, line, queue) == 0)
+		return ;
 	v1 = find_index(queue, split[0]);
 	v2 = find_index(queue, split[1]);
 	if (v1 != -1 && v2 != -1)
 		input_link(lemin, v1, v2);
 	delete_split(split, DELETE_LINK);
-	join_str(lemin, line);
-	ft_strdel(&line);
+	join_and_del(lemin, line);
 	help_fill(queue, lemin, line, split);
 }

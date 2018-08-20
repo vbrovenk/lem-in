@@ -21,7 +21,8 @@ SRC =	main.c\
 		get_shortest_paths.c\
 		find_path.c\
 		useful_func.c\
-		error.c
+		error.c\
+		check_funcs.c
 OBJ = $(SRC:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
 

@@ -11,28 +11,7 @@
 /* ************************************************************************** */
 
 #include "lemin.h"
-
-void	check_ants(t_lemin *lemin)
-{
-	char	*line;
-	int		i;
-
-	get_next_line(0, &line);
-	if (line == NULL)
-		ft_error();
-	i = -1;
-	while (line[++i])
-	{
-		if (ft_isspace(line[i]))
-			ft_error();
-		else if (!ft_isdigit(line[i]))
-			ft_error();
-	}
-	lemin->count_ants = ft_atoi(line);
-	if (lemin->count_ants <= 0)
-		ft_error();
-	lemin->output = line;
-}
+#include <stdio.h>
 
 void	check_commands(char *line, t_lemin *lemin)
 {
@@ -49,6 +28,33 @@ void	check_commands(char *line, t_lemin *lemin)
 	else if (line[0] != '#')
 		ft_error();
 	join_str(lemin, line);
+}
+
+void	check_ants(t_lemin *lemin)
+{
+	char	*line;
+	int		i;
+
+	while (get_next_line(0, &line) > 0 && line[0] == '#')
+	{
+		check_commands(line, lemin);
+		ft_strdel(&line);
+	}
+	if (line == NULL)
+		ft_error();
+	i = -1;
+	while (line[++i])
+	{
+		if (ft_isspace(line[i]))
+			ft_error();
+		else if (!ft_isdigit(line[i]))
+			ft_error();
+	}
+	lemin->count_ants = ft_atoi(line);
+	if (lemin->count_ants <= 0)
+		ft_error();
+	join_str(lemin, line);
+	ft_strdel(&line);
 }
 
 void	get_room(char *line, t_lemin *lemin, t_queue *queue)
@@ -90,7 +96,7 @@ char	*check_rooms(t_lemin *lemin, t_queue *queue)
 		{
 			if (ft_isspace(line[0]) == 1)
 			{
-				// ft_putstr("ROOM HAS SPACES IN NAME\n");
+				ft_putstr("ROOM HAS SPACES IN NAME\n");
 				ft_error();
 			}
 			get_room(line, lemin, queue);
@@ -102,7 +108,6 @@ char	*check_rooms(t_lemin *lemin, t_queue *queue)
 	return (line);
 }
 
-// вопрос про пустые строки в конце карты
 int		main(void)
 {
 	t_lemin *lemin;
@@ -125,5 +130,6 @@ int		main(void)
 	ft_putchar('\n');
 	find_path(lemin, queue);
 	move_ants(lemin);
+	// system("leaks lem-in");
 	return (0);
 }

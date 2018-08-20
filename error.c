@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-void	ft_error() // broskaja soska na treh poloskah - (c) Eldjay
+void	ft_error(void)
 {
 	ft_putstr("ERROR\n");
 	// system("leaks lem-in");

@@ -17,7 +17,8 @@ void	join_str(t_lemin *lemin, char *line)
 	char	*temp;
 
 	temp = lemin->output;
-	lemin->output = ft_strjoin(temp, "\n");
+	if (lemin->output != NULL)
+		lemin->output = ft_strjoin(temp, "\n");
 	ft_strdel(&temp);
 	temp = lemin->output;
 	lemin->output = ft_strjoin(temp, line);

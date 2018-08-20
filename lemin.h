@@ -79,7 +79,6 @@ void				join_str(t_lemin *lemin, char *line);
 int					find_index(t_queue *queue, char *name_vertex);
 void				get_shortest_path(t_lemin *lemin, t_queue *queue);
 int					find_end_index(t_queue *queue);
-
 void				find_path(t_lemin *lemin, t_queue *queue);
 void				join_str(t_lemin *lemin, char *line);
 void				delete_split(char **split, int what_del);
@@ -87,5 +86,9 @@ char				*find_room_name(t_queue *queue, int index);
 void				init_structs(t_lemin *lemin, t_queue *queue);
 void				check_same_rooms(t_queue *queue);
 char				*find_room_name(t_queue *queue, int index);
+int					check_line(char *line);
+int					check_split(char **split, char *line);
+int					check_for_stop(char *line);
+int					check_name_rooms(char **split, char *line, t_queue *queue);
 
 #endif
