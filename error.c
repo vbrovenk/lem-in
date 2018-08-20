@@ -15,7 +15,7 @@
 void	ft_error(void)
 {
 	ft_putstr("ERROR\n");
-	// system("leaks lem-in");
+	system("leaks lem-in");
 	exit(1);
 }
 

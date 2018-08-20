@@ -77,7 +77,7 @@ void	get_room(char *line, t_lemin *lemin, t_queue *queue)
 	}
 	if (i != 3)
 		ft_error(lemin);
-	enqueue(queue, split[0], lemin);
+	enqueue(queue, split, lemin);
 	join_str(lemin, line);
 	delete_split(split, DELETE_ROOM);
 }
@@ -120,6 +120,7 @@ int		main(void)
 	check_ants(lemin);
 	last_line = check_rooms(lemin, queue);
 	check_same_rooms(queue);
+	check_same_coord(queue);
 	set_indexes(queue);
 	check_start_end(queue, lemin);
 	make_matrix(queue, lemin);
@@ -130,6 +131,6 @@ int		main(void)
 	ft_putchar('\n');
 	find_path(lemin, queue);
 	move_ants(lemin);
-	// system("leaks lem-in");
+	system("leaks lem-in");
 	return (0);
 }

@@ -12,7 +12,7 @@
 
 #include "lemin.h"
 
-int	check_line(char *line)
+int		check_line(char *line)
 {
 	int i;
 
@@ -33,7 +33,7 @@ int	check_line(char *line)
 	return (0);
 }
 
-int	check_split(char **split, char *line)
+int		check_split(char **split, char *line)
 {
 	int	i;
 
@@ -49,7 +49,7 @@ int	check_split(char **split, char *line)
 	return (0);
 }
 
-int	check_for_stop(char *line)
+int		check_for_stop(char *line)
 {
 	if (line[0] == '\0')
 		return (1);
@@ -57,7 +57,7 @@ int	check_for_stop(char *line)
 		return (0);
 }
 
-int	check_name_rooms(char **split, char *line, t_queue *queue)
+int		check_name_rooms(char **split, char *line, t_queue *queue)
 {
 	t_node	*temp;
 	char	*room_left;
@@ -83,4 +83,27 @@ int	check_name_rooms(char **split, char *line, t_queue *queue)
 	ft_strdel(&line);
 	delete_split(split, DELETE_LINK);
 	return (0);
+}
+
+void	check_same_coord(t_queue *queue)
+{
+	t_node	*curr_room;
+	t_node	*next_room;
+
+	curr_room = queue->head;
+	while (curr_room != NULL)
+	{
+		next_room = curr_room->next;
+		while (next_room != NULL)
+		{
+			if (curr_room->coord_x == next_room->coord_x &&
+				curr_room->coord_y == next_room->coord_y)
+			{
+				ft_putstr("ROOMS HAVE SAME COORDINATES\n");
+				ft_error();
+			}
+			next_room = next_room->next;
+		}
+		curr_room = curr_room->next;
+	}
 }

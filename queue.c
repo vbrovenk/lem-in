@@ -12,12 +12,12 @@
 
 #include "lemin.h"
 
-static	t_node	*create_node(char *line, t_lemin *lemin)
+static	t_node	*create_node(char **split, t_lemin *lemin)
 {
 	t_node	*node;
 
 	node = (t_node*)malloc(sizeof(t_node));
-	node->name = line;
+	node->name = split[0];
 	node->next = NULL;
 	if (lemin->flag_start == 1)
 	{
@@ -35,19 +35,21 @@ static	t_node	*create_node(char *line, t_lemin *lemin)
 		node->end = 0;
 	if (node->end == 1 && node->start == 1)
 		ft_error(lemin);
+	node->coord_x = ft_atoi(split[1]);
+	node->coord_y = ft_atoi(split[2]);
 	return (node);
 }
 
-void			enqueue(t_queue *queue, char *line, t_lemin *lemin)
+void			enqueue(t_queue *queue, char **split, t_lemin *lemin)
 {
 	if (queue->tail == NULL)
 	{
-		queue->tail = create_node(line, lemin);
+		queue->tail = create_node(split, lemin);
 		queue->head = queue->tail;
 	}
 	else
 	{
-		queue->tail->next = create_node(line, lemin);
+		queue->tail->next = create_node(split, lemin);
 		queue->tail = queue->tail->next;
 	}
 	queue->count++;

@@ -42,6 +42,8 @@ typedef	struct		s_node
 	char			*name;
 	int				start;
 	int				end;
+	int				coord_x;
+	int				coord_y;
 	struct s_node	*next;
 }					t_node;
 
@@ -66,7 +68,8 @@ typedef	struct		s_list_ants
 
 }					t_list_ants;
 
-void				enqueue(t_queue *queue, char *line, t_lemin *lemin);
+void				enqueue(t_queue *queue, char **split, t_lemin *lemin);
+void				check_same_coord(t_queue *queue);
 void				ft_error();
 void				move_ants(t_lemin *lemin);
 void				set_indexes(t_queue *queue);
