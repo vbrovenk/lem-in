@@ -41,7 +41,7 @@ static	int		print_ants(t_list_ants *list, t_lemin *lemin)
 	flag_print = 0;
 	while (ant != NULL)
 	{
-		if (ant->index_room < lemin->lenght_path)
+		if (ant->index_room < lemin->length_path)
 		{
 			ft_putchar('L');
 			ft_putnbr(ant->name_ant);
@@ -93,5 +93,24 @@ void			move_ants(t_lemin *lemin)
 		else
 			ft_putchar('\n');
 	}
+	free_ants(list);
+}
+
+void			move_ants_2_rooms(t_lemin *lemin)
+{
+	t_list_ants	*list;
+	int			temp_ants;
+
+	temp_ants = 1;
+	list = (t_list_ants*)malloc(sizeof(t_list_ants));
+	list->head = NULL;
+	list->tail = NULL;
+	while (temp_ants <= lemin->count_ants)
+	{
+		add_ant(list, temp_ants);
+		temp_ants++;
+	}
+	print_ants(list, lemin);
+	ft_putchar('\n');
 	free_ants(list);
 }

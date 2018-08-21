@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "lemin.h"
-#include <stdio.h>
 
 void	check_commands(char *line, t_lemin *lemin)
 {
@@ -135,7 +134,9 @@ int		main(void)
 	ft_putchar('\n');
 	ft_putchar('\n');
 	find_path(lemin, queue);
-	move_ants(lemin);
-	system("leaks lem-in");
+	if (lemin->length_path == 2)
+		move_ants_2_rooms(lemin);
+	else
+		move_ants(lemin);
 	return (0);
 }

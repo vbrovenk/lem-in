@@ -21,12 +21,12 @@ static	void	get_final_path(t_lemin *lemin, t_queue *queue)
 	i = lemin->first_room;
 	while (i >= 0)
 	{
-		lemin->lenght_path++;
+		lemin->length_path++;
 		i--;
 	}
 	i = lemin->first_room;
 	lemin->final_path = (char**)malloc(sizeof(char*)\
-												* (lemin->lenght_path + 1));
+												* (lemin->length_path + 1));
 	k = 0;
 	while (i >= 0)
 	{

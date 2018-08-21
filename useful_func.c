@@ -78,7 +78,7 @@ void	init_structs(t_lemin *lemin, t_queue *queue)
 	lemin->visited = NULL;
 	lemin->path = NULL;
 	lemin->first_room = 0;
-	lemin->lenght_path = 0;
+	lemin->length_path = 0;
 	lemin->final_path = NULL;
 	queue->head = NULL;
 	queue->tail = NULL;

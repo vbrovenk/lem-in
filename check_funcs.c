@@ -17,18 +17,15 @@ int		check_line(char *line)
 	int i;
 	int	count_dash;
 
-	count_dash = 0;
-	if (ft_strchr(line, '-') == 0)
+	if ((count_dash = 0) && ft_strchr(line, '-') == 0)
 	{
 		ft_strdel(&line);
 		return (1);
 	}
 	i = -1;
 	while (line[++i])
-	{
 		if (line[i] == '-')
 			count_dash++;
-	}
 	if (count_dash > 1)
 	{
 		ft_strdel(&line);
@@ -36,13 +33,11 @@ int		check_line(char *line)
 	}
 	i = -1;
 	while (line[++i])
-	{
 		if (ft_isspace(line[i]))
 		{
 			ft_strdel(&line);
 			return (1);
 		}
-	}
 	return (0);
 }
 

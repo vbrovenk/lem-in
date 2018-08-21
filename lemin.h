@@ -32,7 +32,7 @@ typedef	struct		s_lemin{
 	int				*visited;
 	int				*path;
 	int				first_room;
-	int				lenght_path;
+	int				length_path;
 	char			**final_path;
 }					t_lemin;
 
@@ -72,6 +72,7 @@ void				enqueue(t_queue *queue, char **split, t_lemin *lemin);
 void				check_same_coord(t_queue *queue);
 void				ft_error();
 void				move_ants(t_lemin *lemin);
+void				move_ants_2_rooms(t_lemin *lemin);
 void				set_indexes(t_queue *queue);
 void				check_start_end(t_queue *queue, t_lemin *lemin);
 void				make_matrix(t_queue *queue, t_lemin *lemin);
