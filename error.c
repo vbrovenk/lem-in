@@ -40,3 +40,20 @@ void	check_same_rooms(t_queue *queue)
 		room = room->next;
 	}
 }
+
+void	check_count_spaces(char *line)
+{
+	int i;
+	int count_spaces;
+
+	i = 0;
+	count_spaces = 0;
+	while (line[i])
+	{
+		if (line[i] == ' ')
+			count_spaces++;
+		i++;
+	}
+	if (count_spaces != 2)
+		ft_error();
+}

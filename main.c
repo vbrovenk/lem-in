@@ -27,6 +27,8 @@ void	check_commands(char *line, t_lemin *lemin)
 	}
 	else if (line[0] != '#')
 		ft_error();
+	if (lemin->count_start > 1 || lemin->count_end > 1)
+		ft_error();
 	join_str(lemin, line);
 }
 
@@ -37,6 +39,8 @@ void	check_ants(t_lemin *lemin)
 
 	while (get_next_line(0, &line) > 0 && line[0] == '#')
 	{
+		if (ft_strcmp(line, "##start") == 0 || ft_strcmp(line, "##end") == 0)
+			ft_error();
 		check_commands(line, lemin);
 		ft_strdel(&line);
 	}
@@ -99,7 +103,10 @@ char	*check_rooms(t_lemin *lemin, t_queue *queue)
 				ft_putstr("ROOM HAS SPACES IN NAME\n");
 				ft_error();
 			}
+			check_count_spaces(line);
 			get_room(line, lemin, queue);
+			check_same_rooms(queue);
+			check_same_coord(queue);
 		}
 		ft_strdel(&line);
 	}
@@ -119,8 +126,6 @@ int		main(void)
 	init_structs(lemin, queue);
 	check_ants(lemin);
 	last_line = check_rooms(lemin, queue);
-	check_same_rooms(queue);
-	check_same_coord(queue);
 	set_indexes(queue);
 	check_start_end(queue, lemin);
 	make_matrix(queue, lemin);

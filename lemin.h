@@ -93,5 +93,6 @@ int					check_line(char *line);
 int					check_split(char **split, char *line);
 int					check_for_stop(char *line);
 int					check_name_rooms(char **split, char *line, t_queue *queue);
+void				check_count_spaces(char *line);
 
 #endif
